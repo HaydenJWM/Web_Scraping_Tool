@@ -24,7 +24,21 @@ def good_response(response):
 #Main function
 def main():
     raw_html = get_page("http://www.fabpedigree.com/james/mathmen.htm")
-    print(len(raw_html))
+    processed_html = BeautifulSoup(raw_html,"html.parser")
+    tags = processed_html.find_all("li")
+    names = set()
+
+    #Load tags into a set to avoid dupes
+    for x in range(len(tags)):
+        for name in tags[x].text.split("\n"):
+            if len(name) > 0:
+                names.add(name)
+
+    #Print names from set
+    count = 0
+    for x in names:
+        count = count + 1
+        print(count, " ", x)
 
 #Call main function
 if __name__ == "__main__":
